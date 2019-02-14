@@ -16,13 +16,23 @@ export class Registration extends Component {
 			password_confirmation: "",
 			roleChoiceStatus: false,
 			displayForm: false,
-			formErrors: ""
+			formErrors: "",
+			sessionId: ""
 		};
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onRoleClick = this.onRoleClick.bind(this);
 		this.fbLogin = this.fbLogin.bind(this);
 		this.onLoginEmailClick = this.onLoginEmailClick.bind(this);
+	}
+
+	componentDidMount() {
+		let session = document.location.hash.slice(1);
+		if (session) {
+			this.setState({
+				sessionId: session
+			});
+		}
 	}
 
 	fbLogin(){
@@ -52,7 +62,11 @@ export class Registration extends Component {
 						formErrors: errors
 					});
 				} else {
-					document.location.href = "/";
+					if (this.state.sessionId) {
+						document.location.href = "/sessions/" + this.state.sessionId;
+					} else {
+						document.location.href = "/";
+					}
 				}
 			})
 			.catch(function (error) {

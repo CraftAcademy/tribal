@@ -10,11 +10,21 @@ export class Login extends Component {
 		this.state = {
 			email: "",
 			password: "",
-			formErrors: ""
+			formErrors: "",
+			sessionId: ""
 		};
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.fbLogin = this.fbLogin.bind(this);
+	}
+
+	componentDidMount() {
+		let session = document.location.hash.slice(1);
+		if (session) {
+			this.setState({
+				sessionId: session
+			});
+		}
 	}
 
 	fbLogin() {
@@ -42,7 +52,11 @@ export class Login extends Component {
 						formErrors: errors
 					});
 				} else {
-					document.location.href = "/";
+					if (this.state.sessionId) {
+						document.location.href = "/sessions/" + this.state.sessionId;
+					} else {
+						document.location.href = "/";
+					}
 				}
 			})
 			.catch(function(error) {
