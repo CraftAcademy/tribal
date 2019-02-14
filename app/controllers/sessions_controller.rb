@@ -9,11 +9,11 @@ class SessionsController < ApplicationController
     price = SessionPriceService.get_price(session)
     channel_name = session.channel_name
     @session_props = { session: session,
-                       coach: session.coach,
-                       members: session.users.trainee,
-                       user: user,
-                       price: price,
-                       channel_name: channel_name }
+                      coach: session.coach,
+                      members: session.users,
+                      user: user,
+                      price: price,
+                      channel_name: channel_name }
     end
 
   def create

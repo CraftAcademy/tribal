@@ -22,6 +22,7 @@ export class AllSessions extends Component {
 	}
 
 	render() {
+		console.log(this.state.sessions)
 		let mySessions = [];
 		if (this.state.mysessions) {
 			this.state.mysessions.forEach(session => {

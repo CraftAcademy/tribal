@@ -18,11 +18,12 @@ class MainController < ApplicationController
   private
 
   def get_and_update_price_on_sessions
-    @sessions = Session.all
+    @sessions = Session.includes(:users)
     @sessions.each do |session|
       price = SessionPriceService.get_price(session)
       session.update_attribute(:price, price)
     end
+    @sessions.to_json(include: :users)
   end
 
   def get_channel_name

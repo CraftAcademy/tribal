@@ -84,6 +84,18 @@ Given("trainee Jon buys a session") do
   session.users << User.find_by(first_name: 'Jon')
 end
 
+Given("multiple trainees buy a session") do
+	session = Session.find_by(title: 'Bodypump')
+	session.users << User.find_by(first_name: 'John')
+	session.users << User.find_by(first_name: 'John2')
+	session.users << User.find_by(first_name: 'John3')
+	session.users << User.find_by(first_name: 'John4')
+end
+
 Then("show me the page") do
 	save_and_open_page
+end
+
+Then("binding.pry") do
+	binding.pry
 end

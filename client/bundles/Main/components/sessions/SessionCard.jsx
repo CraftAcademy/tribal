@@ -5,7 +5,8 @@ export default class SessionCard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			coach: {}
+			coach: {},
+			members: props.members
 		}
 	}
 
@@ -17,7 +18,7 @@ export default class SessionCard extends Component {
 		let response = await axios.get(`/users/${id}`)
 		this.setState({ coach: response.data.user })
 	}
-
+	
 	render() {
 		return (
 			<div>
@@ -26,6 +27,7 @@ export default class SessionCard extends Component {
 						<div id={this.props.session.id} className='session'>
 							<h1 className="session_name">{this.props.session.title}</h1>
 							<p>{"Coach name:" + this.state.coach.first_name}</p>
+							<p>{"Participants:" + this.props.session.members_count + "/8"}</p>
 							<p>{new Date(this.props.session.start_date).toLocaleString('en-GB', { h12: false })}</p>
 						</div>
 						<div style={this.props.buttonName ? {} : { display: "none" }} >
